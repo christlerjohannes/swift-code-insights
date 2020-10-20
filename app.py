@@ -12,5 +12,5 @@ def hello():
 def respond():
     project = request.json['repository']['slug']
     commit = request.json['changes'][0]['toHash']
-    subprocess.run(['sh', "run_insights.sh", os.getenv("BB_TOKEN"), os.getenv("BB_BASE_URL"), os.getenv("BB_PROJECT"), os.getenv("BB_REPORT_SLUG"), project, commit])
+    subprocess.run(['sh', "run_insights.sh", project, commit])
     return Response(status=200)

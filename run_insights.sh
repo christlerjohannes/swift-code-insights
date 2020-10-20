@@ -1,11 +1,9 @@
-set -e # Make the Bamboo job fail if one of the commands fails
-
-bitbucket_token_password=$1
-BBS_URL=$2
-BBS_PROJECT=$3
-REPORT_KEY=$4
-BBS_REPO=$5
-COMMIT_ID=$6
+bitbucket_token_password=${bamboo.BB_TOKEN}
+BBS_URL=${bamboo.BB_BASE_URL}
+BBS_PROJECT=${bamboo.BB_PROJECT}
+REPORT_KEY=${bamboo.BB_REPORT_SLUG}
+BBS_REPO=$1
+COMMIT_ID=$2
 
 echo "Cloning Repo"
 curl -L \
