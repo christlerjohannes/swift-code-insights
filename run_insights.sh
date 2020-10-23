@@ -1,9 +1,9 @@
-bitbucket_token_password=${bamboo.BB_TOKEN}
-BBS_URL=${bamboo.BB_BASE_URL}
-BBS_PROJECT=${bamboo.BB_PROJECT}
-REPORT_KEY=${bamboo.BB_REPORT_SLUG}
-BBS_REPO=$1
-COMMIT_ID=$2
+bitbucket_token_password=MjE4Nzc0MjQzMzQ1OhGyJ7S8mxV6hYFx29wGa9AiuQ3/
+BBS_URL=https://bitbucket.ase.in.tum.de/
+BBS_PROJECT=IOS2021INTROCOURSE
+REPORT_KEY=ios20.swiftlint.report
+BBS_REPO=S-Christler
+COMMIT_ID=e7d1e145234f0ec4edf90401c6a88788852a39b7
 
 echo "Cloning Repo"
 curl -L \
