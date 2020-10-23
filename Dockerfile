@@ -47,4 +47,4 @@ EXPOSE 5000
 
 COPY . .
 
-CMD ["flask", "run"]
+CMD ["flask", "run" "-p", "8080"]
