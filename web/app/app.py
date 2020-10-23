@@ -28,3 +28,10 @@ redis = Redis(host=os.environ.get('REDIS_HOST', 'redis'), port=6379)
 def hello():
     redis.incr('hits')
     return 'Hello Container World! I have been seen %s times and my hostname is %s.\n' % (redis.get('hits'),socket.gethostname())
+
+@app.route('/webhook', methods=['POST'])
+def respond():
+    project = request.json['repository']['slug']
+    commit = request.json['changes'][0]['toHash']
+    subprocess.run(['sh', "run_insights.sh", project, commit])
+    return Response(status=200)

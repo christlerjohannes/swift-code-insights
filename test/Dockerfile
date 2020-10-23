@@ -1,5 +1,7 @@
 FROM swift:5.3
 
+WORKDIR /code
+
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
@@ -37,10 +39,12 @@ RUN git clone --branch $SWIFTLINT_REVISION https://github.com/realm/SwiftLint.gi
     cd .. && \
     rm -rf SwiftLint
 
-COPY . /
 
-RUN pip install -r requirements.txt && pip install gunicorn
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 
-RUN chmod +x runserver.sh
+EXPOSE 5000
 
-ENTRYPOINT ["/runserver.sh"]
+COPY . .
+
+CMD ["flask", "run" "-p", "8080"]
