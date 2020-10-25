@@ -1,21 +1,17 @@
-bitbucket_token_password=BB_TOKEN
-BBS_URL=BB_BASE_URL
-BBS_PROJECT=BB_PROJECT
-REPORT_KEY=BB_REPORT_SLUG
-BBS_REPO=$1
+BB_REPO=$1
 COMMIT_ID=$2
 
-echo $bitbucket_token_password
-echo $BBS_URL
-echo $BBS_PROJECT
-echo $REPORT_KEY
-echo $BBS_REPO
+echo $BB_TOKEN
+echo $BB_BASE_URL
+echo $BB_PROJECT
+echo $BB_REPORT_KEY
+echo $BB_REPO
 echo $COMMIT_ID
 
 echo "Cloning Repo"
 curl -L \
--H "Authorization: Bearer $bitbucket_token_password" \
-"$BBS_URL/rest/api/1.0/projects/$BBS_PROJECT/repos/$BBS_REPO/archive?filename=sourceFiles.zip&at=$COMMIT_ID" \
+-H "Authorization: Bearer $$BB_TOKEN" \
+"$BB_BASE_URL/rest/api/1.0/projects/$BB_PROJECT/repos/$BB_REPO/archive?filename=sourceFiles.zip&at=$COMMIT_ID" \
 "-o$COMMIT_ID.zip"
 echo "Dome"
 
@@ -39,29 +35,29 @@ echo "Done"
 echo "Creating insight report"
 curl \
 -H "Content-type: application/json" \
--H "Authorization: Bearer $bitbucket_token_password" \
+-H "Authorization: Bearer $$BB_TOKEN" \
 -X PUT \
 -d @report_$COMMIT_ID.json \
-"$BBS_URL/rest/insights/latest/projects/$BBS_PROJECT/repos/$BBS_REPO/commits/$COMMIT_ID/reports/$REPORT_KEY"
+"$BB_BASE_URL/rest/insights/latest/projects/$BB_PROJECT/repos/$BB_REPO/commits/$COMMIT_ID/reports/$BB_REPORT_KEY"
 echo "Done"
 
 # Delete old annotations from the report (they may not exist but it is better to be safe)
 echo "Deleting any existing annotations"
 curl \
--H "Authorization: Bearer $bitbucket_token_password" \
+-H "Authorization: Bearer $$BB_TOKEN" \
 -H "X-Atlassian-Token: no-check" \
 -X DELETE \
-"$BBS_URL/rest/insights/latest/projects/$BBS_PROJECT/repos/$BBS_REPO/commits/$COMMIT_ID/reports/$REPORT_KEY/annotations"
+"$BB_BASE_URL/rest/insights/latest/projects/$BB_PROJECT/repos/$BB_REPO/commits/$COMMIT_ID/reports/$BB_REPORT_KEY/annotations"
 echo "Done"
 
 # Create the annotations
 echo "Adding annotations to report"
 curl \
 -H "Content-type: application/json" \
--H "Authorization: Bearer $bitbucket_token_password" \
+-H "Authorization: Bearer $$BB_TOKEN" \
 -X POST \
 -d @annotations_$COMMIT_ID.json \
-"$BBS_URL/rest/insights/latest/projects/$BBS_PROJECT/repos/$BBS_REPO/commits/$COMMIT_ID/reports/$REPORT_KEY/annotations"
+"$BB_BASE_URL/rest/insights/latest/projects/$BB_PROJECT/repos/$BB_REPO/commits/$COMMIT_ID/reports/$BB_REPORT_KEY/annotations"
 echo "Done"
 
 echo "Cleaning Up"
