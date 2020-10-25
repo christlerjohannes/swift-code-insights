@@ -8,7 +8,10 @@ services:
     build:
       context: ./web/
       args:
-        - BASE_URL=${BASE_URL}
+        - BB_BASE_URL=${BB_BASE_URL}
+        - BB_PROJECT=${BB_PROJECT}
+        - BB_REPORT_SLUG=${BB_REPORT_SLUG}
+        - BB_TOKEN=${BB_TOKEN}
     ports:
       - "8000:8000"
     links:
