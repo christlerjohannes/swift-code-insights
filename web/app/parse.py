@@ -21,7 +21,22 @@ for line in lines:
             'path': path,
             'line': line,
             'message': message,
-            'severity': 'LOW'
+            'severity': 'MEDIUM'
+        })
+        
+    if 'error' in line:
+        warning_count += 1
+        path_and_line = line.split('error: ')[0]
+        message = line.split('error: ')[1]
+        
+        path = path_and_line.split(':')[0].replace(os.getcwd() + '/' + commit + "/", '')
+        line = path_and_line.split(':')[1].split(':')[0]
+        
+        annotations.append({
+            'path': path,
+            'line': line,
+            'message': message,
+            'severity': 'HIGH'
         })
         
 with open('report_' + commit + '.json', 'w') as report_file:
