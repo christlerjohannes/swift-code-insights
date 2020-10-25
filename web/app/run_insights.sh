@@ -1,12 +1,16 @@
-#!/bin/sh
-echo "Hello, ${bamboo.test}!"
-
-bitbucket_token_password=${bamboo.BB_TOKEN}
-BBS_URL=${bamboo.BB_BASE_URL}
-BBS_PROJECT=${bamboo.BB_PROJECT}
-REPORT_KEY=${bamboo.BB_REPORT_SLUG}
+bitbucket_token_password=$BB_TOKEN
+BBS_URL=$BB_BASE_URL
+BBS_PROJECT=$BB_PROJECT
+REPORT_KEY=$BB_REPORT_SLUG
 BBS_REPO=$1
 COMMIT_ID=$2
+
+echo bitbucket_token_password
+echo BBS_URL
+echo BBS_PROJECT
+echo REPORT_KEY
+echo BBS_REPO
+echo COMMIT_ID
 
 echo "Cloning Repo"
 curl -L \
