@@ -4,7 +4,7 @@ COMMIT_ID=$2
 echo $BB_TOKEN
 echo $BB_BASE_URL
 echo $BB_PROJECT
-echo $BB_REPORT_KEY
+echo $BB_REPORT_SLUG
 echo $BB_REPO
 echo $COMMIT_ID
 
@@ -38,7 +38,7 @@ curl \
 -H "Authorization: Bearer $$BB_TOKEN" \
 -X PUT \
 -d @report_$COMMIT_ID.json \
-"$BB_BASE_URL/rest/insights/latest/projects/$BB_PROJECT/repos/$BB_REPO/commits/$COMMIT_ID/reports/$BB_REPORT_KEY"
+"$BB_BASE_URL/rest/insights/latest/projects/$BB_PROJECT/repos/$BB_REPO/commits/$COMMIT_ID/reports/$BB_REPORT_SLUG"
 echo "Done"
 
 # Delete old annotations from the report (they may not exist but it is better to be safe)
@@ -47,7 +47,7 @@ curl \
 -H "Authorization: Bearer $$BB_TOKEN" \
 -H "X-Atlassian-Token: no-check" \
 -X DELETE \
-"$BB_BASE_URL/rest/insights/latest/projects/$BB_PROJECT/repos/$BB_REPO/commits/$COMMIT_ID/reports/$BB_REPORT_KEY/annotations"
+"$BB_BASE_URL/rest/insights/latest/projects/$BB_PROJECT/repos/$BB_REPO/commits/$COMMIT_ID/reports/$BB_REPORT_SLUG/annotations"
 echo "Done"
 
 # Create the annotations
@@ -57,7 +57,7 @@ curl \
 -H "Authorization: Bearer $$BB_TOKEN" \
 -X POST \
 -d @annotations_$COMMIT_ID.json \
-"$BB_BASE_URL/rest/insights/latest/projects/$BB_PROJECT/repos/$BB_REPO/commits/$COMMIT_ID/reports/$BB_REPORT_KEY/annotations"
+"$BB_BASE_URL/rest/insights/latest/projects/$BB_PROJECT/repos/$BB_REPO/commits/$COMMIT_ID/reports/$BB_REPORT_SLUG/annotations"
 echo "Done"
 
 echo "Cleaning Up"
