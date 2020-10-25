@@ -20,5 +20,5 @@ def hello():
 def respond():
     project = request.json['repository']['slug']
     commit = request.json['changes'][0]['toHash']
-    subprocess.run(['sh', "run_insights.sh", project, commit])
-    return Response(status=200)
+    # subprocess.run(['sh', "run_insights.sh", project, commit])
+    return Response(str(request.json))
