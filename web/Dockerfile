@@ -32,6 +32,7 @@ RUN apt-get install -y curl
 RUN apt-get install -y wget
 RUN apt-get install -y git
 RUN apt-get install -y unzip
+RUN apt-get install -y vim nano
 
 ENV SWIFTLINT_REVISION="master"
 
