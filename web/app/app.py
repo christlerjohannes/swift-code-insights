@@ -1,6 +1,7 @@
 import os
 import socket
 import subprocess
+from subprocess import check_output
 
 from flask import Flask
 from flask import request, Response
@@ -20,5 +21,9 @@ def hello():
 def respond():
     project = request.json['repository']['slug']
     commit = request.json['changes'][0]['toHash']
+    
+    out = check_output(['sh', "run_insights.sh", project, commit])
+    return Response(out)
     # subprocess.run(['sh', "run_insights.sh", project, commit])
+    
     return Response(str(request.json))
