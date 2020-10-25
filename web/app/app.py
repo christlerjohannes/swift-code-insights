@@ -12,6 +12,7 @@ app = Flask(__name__)
 redis = Redis(host=os.environ.get('REDIS_HOST', 'redis'), port=6379)
 
 
+
 @app.route('/')
 def hello():
     redis.incr('hits')
@@ -22,8 +23,6 @@ def respond():
     project = request.json['repository']['slug']
     commit = request.json['changes'][0]['toHash']
     
-    out = check_output(['sh', "run_insights.sh", project, commit])
-    return Response(out)
-    # subprocess.run(['sh', "run_insights.sh", project, commit])
+    subprocess.run(['sh', "run_insights.sh", project, commit], cwd="app")
     
-    return Response(str(request.json))
+    return Response("done")
