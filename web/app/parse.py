@@ -6,6 +6,7 @@ lines = file.readlines()
 
 annotations = []
 warning_count = 0
+error_count = 0
 
 # Strips the newline character 
 for line in lines: 
@@ -25,7 +26,7 @@ for line in lines:
         })
         
     if 'error' in line:
-        warning_count += 1
+        error_count += 1
         path_and_line = line.split('error: ')[0]
         message = line.split('error: ')[1]
         
@@ -47,7 +48,7 @@ with open('report_' + commit + '.json', 'w') as report_file:
         'data': [
             {
                 'title': 'Error Count',
-                'value': 0            
+                'value': error_count           
             },
             {
                 'title': 'Warning Count',
