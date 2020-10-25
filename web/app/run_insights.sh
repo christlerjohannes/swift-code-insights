@@ -1,3 +1,6 @@
+#!/bin/sh
+echo "Hello, ${bamboo.test}!"
+
 bitbucket_token_password=${bamboo.BB_TOKEN}
 BBS_URL=${bamboo.BB_BASE_URL}
 BBS_PROJECT=${bamboo.BB_PROJECT}
